@@ -34,6 +34,11 @@ const render = {
 
 };
 
+const handleError = (error, element) => {
+	console.log(error);
+	element.innerHTML = 'Sorry, we could not load that data.';
+};
+
 const elements = Array.from(document.querySelectorAll('.js-data')) || null;
 
 const renderData = (element, endpoint, data) => {
@@ -46,6 +51,6 @@ elements.forEach(element => {
 	fetch(`https://swapi.co/api/${endpoint}`)
 		.then(response => response.json())
 		.then(data => renderData(element, endpoint, data.results))
-		.catch(error => console.log(error));
+		.catch(error => handleError(error, element));
 
 });
