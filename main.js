@@ -1,9 +1,5 @@
 'use strict';
 
-const toggleLoading = (element, isLoading = true) => {
-	const method = isLoading ? 'add' : 'remove';
-	element.querySelector('.js-loading-img').classList[method]('is-visible');
-};
 
 var people = {
 
@@ -67,14 +63,21 @@ var planets = {
 
 };
 
+const toggleLoading = (element, isLoading = true) => {
+	const method = isLoading ? 'add' : 'remove';
+	element.querySelector('.js-loading-img').classList[method]('is-visible');
+};
+
+const renderData = (element, endpoint, data) => window[endpoint]['render'](data, element);
+
+const handleSuccess = (element, endpoint, data) => {
+	renderData(element, endpoint, data);
+	toggleLoading(element, false);
+};
+
 const handleError = (error, element) => {
 	console.log(error);
 	element.innerHTML = 'Sorry, we could not load that data.';
-};
-
-const renderData = (element, endpoint, data) => {
-	window[endpoint]['render'](data, element);
-	toggleLoading(element, false);
 };
 
 const elements = Array.from(document.querySelectorAll('.js-data')) || null;
@@ -86,7 +89,7 @@ if (elements) {
 		fetch(`https://swapi.co/api/${endpoint}`)
 		.then(response => response.json())
 		.then(data => window[endpoint]['transform'](data.results))
-		.then(data => renderData(element, endpoint, data))
+		.then(data => handleSuccess(element, endpoint, data))
 		.catch(error => handleError(error, element));
 
 	});
