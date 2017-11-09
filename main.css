@@ -2,7 +2,7 @@ body {
 	display: flex;
 }
 
-.data {
+.content {
 	background: #eee;
 	border: 1px solid #cacaca;
 	flex: 1;
