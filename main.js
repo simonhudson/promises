@@ -21,7 +21,6 @@ var people = {
 	},
 
 	render(data, element) {
-		console.log(data);
 		const list = document.createElement('ul');
 		element.appendChild(list);
 		data.forEach(item => {
