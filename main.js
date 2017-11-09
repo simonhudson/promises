@@ -90,6 +90,5 @@ if (elements) {
 			.then(data => window[endpoint]['transform'](data.results))
 			.then(data => handleSuccess(element, endpoint, data))
 			.catch(error => handleError(error, element));
-
 	});
 }
