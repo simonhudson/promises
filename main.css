@@ -1,0 +1,19 @@
+body {
+	display: flex;
+}
+
+.hidden {
+	display: none;
+}
+
+.data {
+	background: #eee;
+	border: 1px solid #cacaca;
+	flex: 1;
+	margin-bottom: 20px;
+	padding: 20px;
+}
+
+.loading-img {
+	width: 30px;
+}
