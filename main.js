@@ -77,10 +77,7 @@ const handleSuccess = (element, endpoint, data) => {
 	toggleLoading(element, false);
 };
 
-const handleError = (error, element) => {
-	console.log(error);
-	element.innerHTML = 'Sorry, we could not load that data.';
-};
+const handleError = (error, element) => element.innerHTML = 'Sorry, we could not load that data.';
 
 const elements = Array.from(document.querySelectorAll('.js-data')) || null;
 
