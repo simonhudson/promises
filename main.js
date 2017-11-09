@@ -5,9 +5,9 @@ const toggleLoading = (element, isLoading = true) => {
 	element.querySelector('.js-loading-img').classList[method]('is-visible');
 };
 
-const transform = {
+var people = {
 
-	people(data) {
+	transform(data) {
 		const dataObj = [];
 		data.forEach(item => {
 			dataObj.push(
@@ -19,37 +19,37 @@ const transform = {
 		return dataObj;
 	},
 
-	planets(data) {
-		const dataObj = [];
+	render(data, element) {
 		data.forEach(item => {
-			dataObj.push(
-				{
-					name: item.name
-				}
-			)
+			const nameElement = document.createElement('p');
+			nameElement.innerHTML = item.name;
+			element.appendChild(nameElement);
 		});
-		return dataObj;
 	}
 
 };
 
-const render = {
+var planets = {
 
-	people(data, element) {
+	transform(data) {
+		const dataObj = [];
+		data.forEach(item => {
+			dataObj.push(
+				{
+					name: item.name
+				}
+			)
+		});
+		return dataObj;
+	},
+
+	render(data, element) {
 		data.forEach(item => {
 			const nameElement = document.createElement('p');
 			nameElement.innerHTML = item.name;
 			element.appendChild(nameElement);
 		});
-	},
-
-	planets(data, element) {
-		data.forEach(item => {
-			const nameElement = document.createElement('p');
-			nameElement.innerHTML = item.name;
-			element.appendChild(nameElement);
-		});
-	},
+	}
 
 };
 
@@ -59,8 +59,8 @@ const handleError = (error, element) => {
 };
 
 const renderData = (element, endpoint, data) => {
-	data = transform[endpoint](data);
-	render[endpoint](data, element);
+	data = window[endpoint]['transform'](data);
+	window[endpoint]['render'](data, element);
 	toggleLoading(element, false);
 };
 
