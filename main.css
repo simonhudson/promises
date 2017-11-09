@@ -10,11 +10,21 @@ body {
 	padding: 20px;
 }
 
-.loading-img {
+.loading {
 	display: none;
+	margin: 0 auto;
+	padding-bottom: 10px;
+	text-align: center;
+}
+
+.loading.is-visible {
+	display: block;
+}
+
+.loading__img {
 	width: 30px;
 }
 
-.loading-img.is-visible {
-	display: block;
+.loading__text {
+	margin: 0;
 }

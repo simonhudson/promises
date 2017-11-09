@@ -67,7 +67,7 @@ var planets = {
 
 const toggleLoading = (element, isLoading = true) => {
 	const method = isLoading ? 'add' : 'remove';
-	element.querySelector('.js-loading-img').classList[method]('is-visible');
+	element.querySelector('.js-loading').classList[method]('is-visible');
 };
 
 const renderData = (element, endpoint, data) => window[endpoint]['render'](data, element);
