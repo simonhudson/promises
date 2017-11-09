@@ -5,6 +5,34 @@ const toggleLoading = (element, isLoading = true) => {
 	element.querySelector('.js-loading-img').classList[method]('is-visible');
 };
 
+const transform = {
+
+	people(data) {
+		const dataObj = [];
+		data.forEach(item => {
+			dataObj.push(
+				{
+					name: item.name
+				}
+			)
+		});
+		return dataObj;
+	},
+
+	planets(data) {
+		const dataObj = [];
+		data.forEach(item => {
+			dataObj.push(
+				{
+					name: item.name
+				}
+			)
+		});
+		return dataObj;
+	}
+
+};
+
 const render = {
 
 	people(data, element) {
@@ -14,7 +42,7 @@ const render = {
 			element.appendChild(nameElement);
 		});
 	},
-	
+
 	planets(data, element) {
 		data.forEach(item => {
 			const nameElement = document.createElement('p');
@@ -31,6 +59,7 @@ const handleError = (error, element) => {
 };
 
 const renderData = (element, endpoint, data) => {
+	data = transform[endpoint](data);
 	render[endpoint](data, element);
 	toggleLoading(element, false);
 };
