@@ -9,6 +9,8 @@ var people = {
 			dataObj.push(
 				{
 					metadata: {
+						created: item.created,
+						edited: item.edited,
 						url: item.url
 					},
 					name: item.name
@@ -19,6 +21,7 @@ var people = {
 	},
 
 	render(data, element) {
+		console.log(data);
 		const list = document.createElement('ul');
 		element.appendChild(list);
 		data.forEach(item => {
