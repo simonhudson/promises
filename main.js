@@ -8,10 +8,14 @@ const toggleLoading = (element, isLoading = true) => {
 var people = {
 
 	transform(data) {
+		console.log(data[0]);
 		const dataObj = [];
 		data.forEach(item => {
 			dataObj.push(
 				{
+					metadata: {
+						url: item.url
+					},
 					name: item.name
 				}
 			)
@@ -20,10 +24,21 @@ var people = {
 	},
 
 	render(data, element) {
+		const list = document.createElement('ul');
+		element.appendChild(list);
 		data.forEach(item => {
-			const nameElement = document.createElement('p');
-			nameElement.innerHTML = item.name;
-			element.appendChild(nameElement);
+			const listItem = document.createElement('li');
+			const link = document.createElement('a');
+			const attributes = [
+				{
+					attr: 'href',
+					value: item.metadata.url
+				}
+			];
+			attributes.forEach(attribute => link.setAttribute(attribute.attr, attribute.value));
+			link.textContent = item.name;
+			listItem.appendChild(link);
+			list.appendChild(listItem);
 		});
 	}
 
