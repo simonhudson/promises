@@ -8,7 +8,6 @@ const toggleLoading = (element, isLoading = true) => {
 var people = {
 
 	transform(data) {
-		console.log(data[0]);
 		const dataObj = [];
 		data.forEach(item => {
 			dataObj.push(
@@ -74,7 +73,6 @@ const handleError = (error, element) => {
 };
 
 const renderData = (element, endpoint, data) => {
-	data = window[endpoint]['transform'](data);
 	window[endpoint]['render'](data, element);
 	toggleLoading(element, false);
 };
@@ -87,7 +85,8 @@ if (elements) {
 		const endpoint = element.dataset.apiEndpoint;
 		fetch(`https://swapi.co/api/${endpoint}`)
 		.then(response => response.json())
-		.then(data => renderData(element, endpoint, data.results))
+		.then(data => window[endpoint]['transform'](data.results))
+		.then(data => renderData(element, endpoint, data))
 		.catch(error => handleError(error, element));
 
 	});
