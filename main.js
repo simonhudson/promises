@@ -41,17 +41,20 @@ const handleError = (error, element) => {
 
 const elements = Array.from(document.querySelectorAll('.js-data')) || null;
 
+
 const renderData = (element, endpoint, data) => {
 	render[endpoint](data, element);
 	toggleLoading(element, false);
 };
 
-elements.forEach(element => {
-	toggleLoading(element);
-	const endpoint = element.dataset.apiEndpoint;
-	fetch(`https://swapi.co/api/${endpoint}`)
+if (elements) {
+	elements.forEach(element => {
+		toggleLoading(element);
+		const endpoint = element.dataset.apiEndpoint;
+		fetch(`https://swapi.co/api/${endpoint}`)
 		.then(response => response.json())
 		.then(data => renderData(element, endpoint, data.results))
 		.catch(error => handleError(error, element));
 
-});
+	});
+}
