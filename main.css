@@ -2,10 +2,6 @@ body {
 	display: flex;
 }
 
-.hidden {
-	display: none;
-}
-
 .data {
 	background: #eee;
 	border: 1px solid #cacaca;
@@ -15,5 +11,10 @@ body {
 }
 
 .loading-img {
+	display: none;
 	width: 30px;
+}
+
+.loading-img.is-visible {
+	display: block;
 }

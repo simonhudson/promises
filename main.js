@@ -1,8 +1,8 @@
 'use strict';
 
-const toggleLoading = (element, isLoading = false) => {
-	const method = isLoading ? 'remove' : 'add';
-	element.querySelector('.js-loading-img').classList[method]('hidden');
+const toggleLoading = (element, isLoading = true) => {
+	const method = isLoading ? 'add' : 'remove';
+	element.querySelector('.js-loading-img').classList[method]('is-visible');
 };
 
 const transform = {
@@ -43,10 +43,11 @@ const elements = Array.from(document.querySelectorAll('.js-data')) || null;
 
 const renderData = (element, endpoint, data) => {
 	render[endpoint](data, element);
-	toggleLoading(element);
+	toggleLoading(element, false);
 };
 
 elements.forEach(element => {
+	toggleLoading(element);
 	const endpoint = element.dataset.apiEndpoint;
 	fetch(`https://swapi.co/api/${endpoint}`)
 		.then(response => response.json())
