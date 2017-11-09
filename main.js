@@ -5,16 +5,6 @@ const toggleLoading = (element, isLoading = true) => {
 	element.querySelector('.js-loading-img').classList[method]('is-visible');
 };
 
-const transform = {
-
-	people(data) {
-		const returnData = [];
-		data.forEach(item => returnData.push({name: item.name}));
-		return returnData;
-	}
-
-};
-
 const render = {
 
 	people(data, element) {
@@ -24,6 +14,7 @@ const render = {
 			element.appendChild(nameElement);
 		});
 	},
+	
 	planets(data, element) {
 		data.forEach(item => {
 			const nameElement = document.createElement('p');
@@ -39,13 +30,12 @@ const handleError = (error, element) => {
 	element.innerHTML = 'Sorry, we could not load that data.';
 };
 
-const elements = Array.from(document.querySelectorAll('.js-data')) || null;
-
-
 const renderData = (element, endpoint, data) => {
 	render[endpoint](data, element);
 	toggleLoading(element, false);
 };
+
+const elements = Array.from(document.querySelectorAll('.js-data')) || null;
 
 if (elements) {
 	elements.forEach(element => {
