@@ -84,13 +84,13 @@ const elements = Array.from(document.querySelectorAll('.js-data')) || null;
 
 if (elements) {
 	elements.forEach(element => {
-		toggleLoading(element);
 		const endpoint = element.dataset.apiEndpoint;
+		toggleLoading(element);
 		fetch(`https://swapi.co/api/${endpoint}`)
-		.then(response => response.json())
-		.then(data => window[endpoint]['transform'](data.results))
-		.then(data => handleSuccess(element, endpoint, data))
-		.catch(error => handleError(error, element));
+			.then(response => response.json())
+			.then(data => window[endpoint]['transform'](data.results))
+			.then(data => handleSuccess(element, endpoint, data))
+			.catch(error => handleError(error, element));
 
 	});
 }
