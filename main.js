@@ -79,10 +79,11 @@ var films = {
 	}
 
 };
+const dataElements = Array.from(document.querySelectorAll('.js-data')) || null;
+const endpointElements = endpoint => Array.from(document.querySelectorAll(`[data-api-endpoint="${endpoint}"]`));
+const endpoints = [];
 
 const hasDataStore = endpoint => !!window[endpoint].dataStore;
-
-const endpointElements = endpoint => Array.from(document.querySelectorAll(`[data-api-endpoint="${endpoint}"]`));
 
 const toggleLoading = (element, isLoading = true) => {
 	const method = isLoading ? 'add' : 'remove';
@@ -100,10 +101,7 @@ const handleSuccess = (endpoint, data) => {
 
 const handleError = (endpoint, error) => endpointElements(endpoint).forEach(element => element.innerHTML = 'Sorry, we could not load that data.');
 
-const dataElements = Array.from(document.querySelectorAll('.js-data')) || null;
-
 if (dataElements) {
-	const endpoints = [];
 
 	dataElements.forEach(element => {
 		const endpoint = element.dataset.apiEndpoint;
