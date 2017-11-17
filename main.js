@@ -2,8 +2,6 @@
 
 var people = {
 
-	dataStore: null,
-
 	transform(data) {
 		const dataObj = [];
 		data.forEach(item => {
@@ -44,8 +42,6 @@ var people = {
 
 var planets = {
 
-	dataStore: null,
-
 	transform(data) {
 		const dataObj = [];
 		data.forEach(item => {
@@ -69,8 +65,6 @@ var planets = {
 };
 
 var films = {
-
-	dataStore: null,
 
 	transform(data) {
 		return data
@@ -98,6 +92,7 @@ const toggleLoading = (element, isLoading = true) => {
 const renderData = (element, endpoint) => window[endpoint].render(element);
 
 const handleSuccess = (endpoint, data) => {
+	console.log(window[endpoint].dataStore);
 	endpointElements(endpoint).forEach(element => {
 		renderData(element, endpoint);
 		toggleLoading(element, false);
