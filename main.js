@@ -114,9 +114,7 @@ if (dataElements) {
 		fetch(`https://swapi.co/api/${endpoint}`)
 			.then(response => response.json())
 			.then(data => window[endpoint].transform(data.results))
-			.then(data => {
-				if (!window[endpoint].dataStore) window[endpoint].dataStore = data;
-			})
+			.then(data => window[endpoint].dataStore = data)
 			.then(data => handleSuccess(endpoint, data))
 			.catch(error => handleError(endpoint, error));
 	});
