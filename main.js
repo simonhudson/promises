@@ -92,7 +92,6 @@ const toggleLoading = (element, isLoading = true) => {
 const renderData = (element, endpoint) => window[endpoint].render(element);
 
 const handleSuccess = (endpoint, data) => {
-	console.log(window[endpoint].dataStore);
 	endpointElements(endpoint).forEach(element => {
 		renderData(element, endpoint);
 		toggleLoading(element, false);
@@ -117,7 +116,9 @@ if (dataElements) {
 		fetch(`https://swapi.co/api/${endpoint}`)
 			.then(response => response.json())
 			.then(data => window[endpoint].transform(data.results))
-			.then(data => window[endpoint].dataStore = data)
+			.then(data => {
+				if (!window[endpoint].dataStore) window[endpoint].dataStore = data;
+			})
 			.then(data => handleSuccess(endpoint, data))
 			.catch(error => handleError(endpoint, error));
 	});
