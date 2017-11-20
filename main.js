@@ -40,6 +40,7 @@ var people = {
 				listItem.appendChild(link);
 				list.appendChild(listItem);
 			});
+			return element;
 		},
 
 		_default(element, endpoint) {
@@ -50,6 +51,7 @@ var people = {
 				listItem.textContent = item.name;
 				list.appendChild(listItem);
 			});
+			return element;
 		}
 
 	}
@@ -77,6 +79,7 @@ var planets = {
 				nameElement.innerHTML = item.name;
 				element.appendChild(nameElement);
 			});
+			return element;
 		}
 	}
 
@@ -95,6 +98,7 @@ var films = {
 				titleElement.innerHTML = `${item.title} (${item.release_date.slice(0, 4)})`;
 				element.appendChild(titleElement);
 			});
+			return element;
 		}
 	}
 
