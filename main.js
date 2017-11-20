@@ -110,8 +110,11 @@ const endpoints = [];
 const hasDataStore = endpoint => !!window[endpoint].dataStore;
 
 const toggleLoading = (element, isLoading = true) => {
-	const method = isLoading ? 'add' : 'remove';
-	element.querySelector('.js-loading').classList[method]('is-visible');
+	const loadingElement = element.querySelector('.js-loading');
+	const classMethod = isLoading ? 'add' : 'remove';
+	const ariaValue = isLoading ? 'false' : 'true';
+	loadingElement.classList[classMethod]('is-visible');
+	loadingElement.setAttribute('aria-hidden', ariaValue);
 };
 
 const renderData = (element, endpoint) => {
