@@ -2,7 +2,9 @@
 
 var people = {
 
-	transform(data) {
+	self: this,
+
+	transform: function(data) {
 		const dataObj = [];
 		data.forEach(item => {
 			dataObj.push(
@@ -19,23 +21,37 @@ var people = {
 		return dataObj;
 	},
 
-	render(element) {
-		const list = document.createElement('ul');
-		element.appendChild(list);
-		this.dataStore.forEach(item => {
-			const listItem = document.createElement('li');
-			const link = document.createElement('a');
-			const attributes = [
-				{
-					attr: 'href',
-					value: item.metadata.url
-				}
-			];
-			attributes.forEach(attribute => link.setAttribute(attribute.attr, attribute.value));
-			link.textContent = item.name;
-			listItem.appendChild(link);
-			list.appendChild(listItem);
-		});
+	render: {
+
+		links(element, endpoint) {
+			const list = document.createElement('ul');
+			element.appendChild(list);
+			window[endpoint].dataStore.forEach(item => {
+				const listItem = document.createElement('li');
+				const link = document.createElement('a');
+				const attributes = [
+					{
+						attr: 'href',
+						value: item.metadata.url
+					}
+				];
+				attributes.forEach(attribute => link.setAttribute(attribute.attr, attribute.value));
+				link.textContent = item.name;
+				listItem.appendChild(link);
+				list.appendChild(listItem);
+			});
+		},
+
+		_default(element, endpoint) {
+			const list = document.createElement('ul');
+			element.appendChild(list);
+			window[endpoint].dataStore.forEach(item => {
+				const listItem = document.createElement('li');
+				listItem.textContent = item.name;
+				list.appendChild(listItem);
+			});
+		}
+
 	}
 
 };
@@ -54,12 +70,14 @@ var planets = {
 		return dataObj;
 	},
 
-	render(element) {
-		this.dataStore.forEach(item => {
-			const nameElement = document.createElement('p');
-			nameElement.innerHTML = item.name;
-			element.appendChild(nameElement);
-		});
+	render: {
+		_default(element, endpoint) {
+			this.dataStore.forEach(item => {
+				const nameElement = document.createElement('p');
+				nameElement.innerHTML = item.name;
+				element.appendChild(nameElement);
+			});
+		}
 	}
 
 };
@@ -70,12 +88,14 @@ var films = {
 		return data
 	},
 
-	render(element) {
-		this.dataStore.forEach(item => {
-			const titleElement = document.createElement('p');
-			titleElement.innerHTML = `${item.title} (${item.release_date.slice(0, 4)})`;
-			element.appendChild(titleElement);
-		});
+	render: {
+		_default(element, endpoint) {
+			this.dataStore.forEach(item => {
+				const titleElement = document.createElement('p');
+				titleElement.innerHTML = `${item.title} (${item.release_date.slice(0, 4)})`;
+				element.appendChild(titleElement);
+			});
+		}
 	}
 
 };
@@ -90,7 +110,10 @@ const toggleLoading = (element, isLoading = true) => {
 	element.querySelector('.js-loading').classList[method]('is-visible');
 };
 
-const renderData = (element, endpoint) => window[endpoint].render(element);
+const renderData = (element, endpoint) => {
+	const view = element.dataset.renderView || '_default';
+	window[endpoint].render[view](element, endpoint);
+};
 
 const handleSuccess = (endpoint, data) => {
 	endpointElements(endpoint).forEach(element => {
