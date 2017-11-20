@@ -72,7 +72,7 @@ var planets = {
 
 	render: {
 		_default(element, endpoint) {
-			this.dataStore.forEach(item => {
+			window[endpoint].dataStore.forEach(item => {
 				const nameElement = document.createElement('p');
 				nameElement.innerHTML = item.name;
 				element.appendChild(nameElement);
@@ -90,7 +90,7 @@ var films = {
 
 	render: {
 		_default(element, endpoint) {
-			this.dataStore.forEach(item => {
+			window[endpoint].dataStore.forEach(item => {
 				const titleElement = document.createElement('p');
 				titleElement.innerHTML = `${item.title} (${item.release_date.slice(0, 4)})`;
 				element.appendChild(titleElement);
