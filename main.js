@@ -2,8 +2,6 @@
 
 var people = {
 
-	self: this,
-
 	transform: function(data) {
 		const dataObj = [];
 		data.forEach(item => {
